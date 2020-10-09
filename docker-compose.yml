@@ -2,49 +2,31 @@
 version: '3.8'
 
 services:
-  # I don't think it works, and for now at least kind of is slowing down development, so just backlog adding this into docker for now
-  # play-server:
-  #   build:
-  #     context: ./play-app
-  #   hostname: i-graph-play-server
-  #   container_name: i-graph-play-server
-  #   environment:
-  #     - "DSE_SEEDS=dse"
-  #       # cap_add:
-  #       #   - IPC_LOCK
-  #       # ulimits:
-  #       #   memlock: -1
-  #   volumes:
-  #     # https://kelda.io/blog/docker-volumes-for-development/
-  #     - ${INTERTEXTUALITY_GRAPH_PLAY_API_DIR:-./play-app}:/app
-  #   ports:
-  #     - 9000:9000
-
   # https://github.com/JanusGraph/janusgraph-docker/blob/master/docker-compose-cql-es.yml
   # TODO get this working and configured. For now, use binary install
-  janusgraph:
-    image: janusgraph/janusgraph:latest
-    container_name: i-graph-janus
-    environment:
-      JANUS_PROPS_TEMPLATE: cassandra-es
-      janusgraph.storage.backend: cql
-      janusgraph.storage.hostname: jce-cassandra
-      janusgraph.index.search.hostname: jce-elastic
-    ports:
-      - "8182:8182"
-    networks:
-      - i-graph
-    healthcheck:
-      test: ["CMD", "bin/gremlin.sh", "-e", "scripts/remote-connect.groovy"]
-      interval: 10s
-      timeout: 30s
-      retries: 3
-    ports: 
-      - 8182:8182
+  # janusgraph:
+  #   image: janusgraph/janusgraph:latest
+  #   container_name: janus-tutorial-janus
+  #   environment:
+  #     JANUS_PROPS_TEMPLATE: cassandra-es
+  #     janusgraph.storage.backend: cql
+  #     janusgraph.storage.hostname: jce-cassandra
+  #     janusgraph.index.search.hostname: jce-elastic
+  #   ports:
+  #     - "8182:8182"
+  #   networks:
+  #     - janus-tutorial
+  #  healthcheck:
+  #    test: ["CMD", "bin/gremlin.sh", "-e", "scripts/remote-connect.groovy"]
+  #    interval: 10s
+  #    timeout: 30s
+  #    retries: 3
+  #  ports: 
+  #    - 8182:8182
 
   seed_node:
     image: "docker.io/strapdata/elassandra:6.8.4.3"
-    container_name: i-graph-elassandra-seed-node
+    container_name: janus-tutorial-elassandra-seed-node
     environment:
       - "JVM_OPTS=-Dcassandra.custom_query_handler_class=org.elassandra.index.ElasticQueryHandler"
       - "MAX_HEAP_SIZE=1200m"
@@ -56,7 +38,7 @@ services:
     ulimits:
       memlock: -1
     networks:
-      - i-graph
+      - janus-tutorial
     ports:
       - "9042:9042"
       - "9200:9200"
@@ -99,51 +81,14 @@ services:
       #   ports:
       #     - "5601:5601"
       #   networks: 
-      #     - i-graph
+      #     - janus-tutorial
       #   deploy:
       #     resources: 
       #       limits: 
       #         memory: 500M
 
-        # dse-01:
-        #   image: datastax/dse-server:6.8.3-ubi7-1
-        #   environment:
-        #     - "DS_LICENSE=accept"
-        #     - "SEEDS=dse,dse-01"
-        #   command: [
-        #     "-k",
-        #     "-s",
-        #     "-g"
-        #   ]
-        #   cap_add:
-        #   - IPC_LOCK
-        #   ulimits:
-        #     memlock: -1
-        #   networks: 
-        #     - i-graph
-
-        # dse-opscenter:
-        #   image: datastax/dse-opscenter:6.8.4
-        #   environment:
-        #     - "DS_LICENSE=accept"
-        #   ports:
-        #     - "8888:8888"
-        #   networks: 
-        #     - i-graph
-      
-      # dse-studio:
-      #   image: datastax/dse-studio:6.8.2
-      #   container_name: i-graph-dse-studio
-      #   environment:
-      #     - "DS_LICENSE=accept"
-      #   depends_on:
-      #     - dse
-      #   ports:
-      #     - "9091:9091"
-      #   networks: 
-      #     - i-graph
 networks:
-  i-graph:
+  janus-tutorial:
     external: true
 volumes:
   janusgraph-default-data:

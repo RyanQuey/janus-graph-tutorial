@@ -22,4 +22,6 @@ rm janusgraph-0.5.2.zip
 
 # Now, setup for cql and es
 cd ~/lib/janusgraph-0.5.2
-# ...
+
+# copy over custom configs, including http-gremlin-server-cql-es.yaml 
+cp conf/* /home/ubuntu//lib/janusgraph-0.5.2/conf/gremlin-server/
