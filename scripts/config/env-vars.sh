@@ -6,11 +6,8 @@
 
 env_vars_parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
-export DATA_UTILS_VERSION=0.6.0
-
-export JANUS_GRAPH_KEYSPACE="janusgraph"
-
 export JANUS_GRAPH_PROJECT_DIR=$env_vars_parent_path/../..
+export JANUS_GRAPH_CONF_DIR=$JANUS_GRAPH_PROJECT_DIR/conf
 export JANUS_GRAPH_SCRIPTS_DIR=$JANUS_GRAPH_PROJECT_DIR/scripts
 
 # TODO all other script files should use these same vars by using `. ../setup/env-vars.sh`

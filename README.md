@@ -1,7 +1,7 @@
 # Setup Janus Graph
 ## DANGER DANGER
 This will create files and potentially overwrite files on your box. Run with caution.
-Particularly if you have an existing janus-graph-0.5.2 installation and it's at ~/lib/janusgraph-0.5.2 
+I think only is a problem if you have an existing janus-graph-0.5.2 installation and it's at ~/lib/janusgraph-0.5.2 . See ./scripts/startup/setup-janus.sh for what we do.
 
 ```
 ./scripts/startup/setup-janus.sh
@@ -53,3 +53,41 @@ You probably won't get anything back, unless you added some vertices. But now yo
 ## Quit the client
 To quit the client, just do `:q`
 
+
+# Getting Janus Graph working on Datastax Astra
+1) download Astra credentials bundle and put it in the ./creds dir (as long as it stays in the creds dir, we have gitignore'd that for you already)
+2) Unzip your bundle 
+```
+unzip ./creds/secure-connect-<your-db-name-in-astra>.zip -d ./creds/
+```
+
+3) either make a new keyspace or note what keyspace you made in Astra.
+4) set a password on your keystore
+
+  * if you don't, I got this error if storage.cql.ssl.keystore.keypassword is blank: 
+      ```
+      Caused by: java.lang.IllegalArgumentException: Invalid configuration value for [root.storage.cql.ssl.keystore.keypassword]
+      ```
+  * Or if I put empty string: 
+      ```
+      Caused by: java.security.UnrecoverableKeyException: Cannot recover key
+      ```
+  * Can change it as follows:
+      ```
+      keytool -storepass '' -keystore identity.jks  -storepasswd
+      # then put in a password that you want to
+      ```
+
+      Now put that pass in storage.cql.ssl.keystore.keypassword (in step 5 below)
+
+5) using the ./conf/astra-janusgraph-cql-es-server.properties.example file as a template, use info from Astra secure connect bundle to fill out all keys listed there. 
+  * Note that the example file assumes you are still running elasticsearch locally
+  * For further details, see here: https://community.datastax.com/answers/8759/view.html. 
+  * For Janus Graph reference on the configs, see here: https://docs.janusgraph.org/basics/configuration-reference/
+  * Note that unless you are using older versions of Cassandra, you want to use `cql` options rather than `cassandra` (which uses thrift)
+
+```
+cp ./conf/astra-janusgraph-cql-es-server.properties.example ./conf/astra-janusgraph-cql-es-server.properties
+vim  ./conf/astra-janusgraph-cql-es-server.properties
+# ...
+```

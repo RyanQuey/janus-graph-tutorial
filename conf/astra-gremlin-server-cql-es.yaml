@@ -15,9 +15,11 @@
 host: 0.0.0.0
 port: 8182
 scriptEvaluationTimeout: 30000
-channelizer: org.apache.tinkerpop.gremlin.server.channel.HttpChannelizer
+# channelizer: org.apache.tinkerpop.gremlin.server.channel.HttpChannelizer
+# trying websocket first
+channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer
 graphs: {
-    graph: conf/gremlin-server/http-janusgraph-cql-es-server.properties
+    graph: conf/gremlin-server/astra-janusgraph-cql-es-server.properties
 }
 scriptEngines: {
     gremlin-groovy: {

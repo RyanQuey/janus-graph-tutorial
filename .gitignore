@@ -1,0 +1,2 @@
+creds/**
+conf/astra-janusgraph-cql-es-server.properties
