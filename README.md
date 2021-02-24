@@ -85,7 +85,7 @@ GraphExp configuration is set in the browser fields
 ### Example Config using Websocket
 ![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/graphexp.websocket.png)
 
-## Can set the color of each node by vertex label
+## Can set the color of each node by label
 ![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/color-node-by-label.png)
 
 # Can you connect Janus Graph to Datastax Astra...?
