@@ -130,3 +130,8 @@ cp ./conf/astra-janusgraph-cql-es-server.properties.example ./conf/astra-janusgr
 vim  ./conf/astra-janusgraph-cql-es-server.properties
 # ...
 ```
+
+# Using Invana-Studio (TODO)
+Looks like no setup is required, just setup your server and can use their hosted vis tool here: https://graph-explorer.herokuapp.com/connect
+
+Haven't tried yet though.
