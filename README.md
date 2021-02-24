@@ -1,5 +1,9 @@
 # Setup Janus Graph
-## DANGER DANGER
+A tutorial for running [Janus Graph](https://janusgraph.org/) on Cassandra and Elasticsearch using [Elassandra](https://www.elassandra.io/), and then visualizing the graph using [Graphexp](https://github.com/bricaud/graphexp).
+
+![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/search-results-default-view.png)
+
+## WARNING
 This will create files and potentially overwrite files on your box. Run with caution.
 I think only is a problem if you have an existing janus-graph-0.5.2 installation and it's at ~/lib/janusgraph-0.5.2 . See ./scripts/startup/setup-janus.sh for what we do.
 
@@ -23,7 +27,7 @@ You can start a server from within an existing app by installing the mvn package
 ./scripts/startup/start-janus-server.sh
 ```
 
-If you want to start an HTTP server instead:
+## If you want to start an HTTP server instead:
 ```
 ./scripts/startup/start-http-janus-server.sh
 ```
@@ -44,6 +48,7 @@ Inside the gremlin client:
 
 ## Run some queries
 
+Get everything using this, which is safe only if there's just a small demo graph
 ```
 g.V()
 ```
@@ -53,6 +58,35 @@ You probably won't get anything back, unless you added some vertices. But now yo
 ## Quit the client
 To quit the client, just do `:q`
 
+# Setup GraphExp
+## Make sure Janus Graph server is running on HTTP or Websocket
+[See instructions above](https://github.com/RyanQuey/janus-graph-tutorial#start-janus-graph-server)
+
+## clone and run graphexp script
+This will serve a simple html file that uses D3 to visualize your graph contents
+
+```
+git clone https://github.com/bricaud/graphexp.git
+cd graphexp
+# serve their html file that will connect to your JanusGraph using D3.js
+python -m SimpleHTTPServer
+```
+Note that graphexp is making HTTP calls from the browser, not the Python server. So make sure ports on your machine are setup accordingly.
+
+Until your graph vertices and edges are loaded, you'll only see a blank UI
+![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/graphexp-setup.png)
+
+
+## Connect over websocket or HTTP
+JanusGraph Server has the ability to serve over HTTP or websocket. Make sure that Graphexp is configured to the right protocol in accordance with what protocol JanusGraph is serving. 
+
+GraphExp configuration is set in the browser fields
+
+### Example Config using Websocket
+![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/graphexp.websocket.png)
+
+## Can set the color of each node by vertex label
+![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/color-node-by-label.png)
 
 # Can you connect Janus Graph to Datastax Astra...?
 ## NOTE never got this to work
