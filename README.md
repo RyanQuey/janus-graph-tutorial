@@ -59,6 +59,8 @@ You probably won't get anything back, unless you added some vertices. But now yo
 To quit the client, just do `:q`
 
 # Setup GraphExp
+GraphExp is an easy way to visualize your graph from a browser. Other options exist such as [invana-studio](https://github.com/invanalabs/invana-studio) and others, but we will demonstrate how to setup GraphExp for this project.
+
 ## Make sure Janus Graph server is running on HTTP or Websocket
 [See instructions above](https://github.com/RyanQuey/janus-graph-tutorial#start-janus-graph-server)
 
