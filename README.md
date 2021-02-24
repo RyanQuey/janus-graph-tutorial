@@ -54,7 +54,10 @@ You probably won't get anything back, unless you added some vertices. But now yo
 To quit the client, just do `:q`
 
 
-# Getting Janus Graph working on Datastax Astra
+# Can you connect Janus Graph to Datastax Astra...?
+## NOTE never got this to work
+This was never completed, but documents what I started trying and some potential routes to look into.
+
 1) download Astra credentials bundle and put it in the ./creds dir (as long as it stays in the creds dir, we have gitignore'd that for you already)
 2) Unzip your bundle 
 ```
