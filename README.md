@@ -1,5 +1,5 @@
-# Setup Janus Graph
-A tutorial for running [Janus Graph](https://janusgraph.org/) on Cassandra and Elasticsearch using [Elassandra](https://www.elassandra.io/), and then visualizing the graph using [Graphexp](https://github.com/bricaud/graphexp).
+# Setup JanusGraph
+A tutorial for running [JanusGraph](https://janusgraph.org/) on Cassandra and Elasticsearch using [Elassandra](https://www.elassandra.io/), and then visualizing the graph using [Graphexp](https://github.com/bricaud/graphexp).
 
 ![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/search-results-default-view.png)
 
@@ -19,7 +19,7 @@ docker-compose up -d
 You might want to wait a second as that starts.
 
 
-# Start Janus Graph Server
+# Start JanusGraph Server
 You can start a server from within an existing app by installing the mvn package in your pom.xml, or run it as a standalone process. The script below will started in a standalone process. This is required before being able to start the gremlin client.
 
 ```
@@ -33,7 +33,7 @@ You can start a server from within an existing app by installing the mvn package
 ```
 The websocket one works fine though. Probably just use that.
 
-# Start Janus Graph Gremlin Client
+# Start JanusGraph Gremlin Client
 In order to start running some gremlin code, need to start the client. No need for a custom script for that.
 ```
 ~/lib/janusgraph-0.5.2/bin/gremlin.sh
@@ -61,7 +61,7 @@ To quit the client, just do `:q`
 # Setup GraphExp
 GraphExp is an easy way to visualize your graph from a browser. Other options exist such as [invana-studio](https://github.com/invanalabs/invana-studio), [gremlin-visualizer](https://github.com/prabushitha/gremlin-visualizer), and others, but we will demonstrate how to setup GraphExp for this project.
 
-## Make sure Janus Graph server is running on HTTP or Websocket
+## Make sure JanusGraph server is running on HTTP or Websocket
 [See instructions above](https://github.com/RyanQuey/janus-graph-tutorial#start-janus-graph-server)
 
 ## clone and run graphexp script
@@ -90,7 +90,7 @@ GraphExp configuration is set in the browser fields
 ## Can set the color of each node by label
 ![](https://github.com/RyanQuey/janus-graph-tutorial/raw/main/images/color-node-by-label.png)
 
-# Can you connect Janus Graph to Datastax Astra...?
+# Can you connect JanusGraph to Datastax Astra...?
 ## NOTE never got this to work
 This was never completed, but documents what I started trying and some potential routes to look into.
 
